@@ -1,0 +1,15 @@
+#---------------------
+#simple AI Model steps
+#---------------------
+#collect the data 
+#build a model
+#prediction with model
+#evaluation
+#improvements (if it's neccesary)
+#save the model
+
+This AI Model is built by UMUT IRAK and datas from ATIL SAMANCIOĞLU
+intension of this model to show how AI learns and predicts with using
+fundemental rules and mathematics of DEEP LEARNING and MACHINE LEARNING.
+
+These are what i used
