@@ -23,6 +23,27 @@ simpleModal = SimpleLinearRegressionModal()
 with torch.inference_mode():
     Y_pred = simpleModal(X_test)
 
+loss_fn = nn.MSELoss() #we select a loss function for our model
+optimizer = torch.optim.SGD(params = simpleModal.parameters(), lr = 0.01) #we select an optimizer for our model
+epochs = 200 # we select how many times we will train our model
+train_loss_values = []
+test_loss_values = []
+epochCount = []
+
+#we train our model for the number of epochs we selected
+for epoch in range(epochs):
+    simpleModal.train() #we should set our model to train mode
+
+    y_pred = simpleModal(X_train) #we make a prediction with our model
+
+    loss = loss_fn(y_pred,Y_train) #we calculate the loss value
+
+    optimizer.zero_grad() #we set the gradients to zero
+    loss.backward() #we calculate the gradients with derivative of the loss function with respect to the weights
+    optimizer.step() #we update the weights
+
+
+#graphing the data
 plt.scatter(X_train,Y_train,c = "b" , s = 10, label = "Training Data")
 plt.scatter(X_test,Y_test,c = "g" , s = 10 , label = "Test Data")
 plt.scatter(X_test,Y_pred,c = "r", s = 10, label = "Prediction")
