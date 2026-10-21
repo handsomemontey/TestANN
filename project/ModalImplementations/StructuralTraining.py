@@ -26,10 +26,10 @@ def main():
     modal = LinearRegressionModal()
     lossFn = nn.MSELoss()
 
-    LEARNING_RATE = 0.01
+    LEARNING_RATE = 0.001
     optimizer = torch.optim.SGD(params = modal.parameters(),lr = LEARNING_RATE)
 
-    epochs = 120
+    epochs = 300
     for epoch in range(epochs):
         modal.train()
 
@@ -45,10 +45,17 @@ def main():
             testPred = modal(XTest)
             testLoss = lossFn(testPred,YTest)
 
-            if(epoch % 5 == 0):
-                print(f"Epoch: {epoch}, Train Loss: {loss}, Test Loss: {testLoss}")
+            # if(epoch % 5 == 0):
+            #     print(f"Epoch: {epoch}, Train Loss: {loss}, Test Loss: {testLoss}")
 
+    modal.eval()
+    with torch.inference_mode():
+        YPreds = modal(XTest)
 
+    plt.scatter(XTrain,YTrain, c= "b",s = 5,label = "Training Data")
+    plt.scatter(XTest,YTest,c="g",s=5,label="Test Data")
+    plt.scatter(XTest,YPreds,c = "r",s = 5,label = "Predictions")
+    plt.show()
 
 
 if __name__ == "__main__":
